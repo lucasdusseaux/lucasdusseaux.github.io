@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucas Dusséaux · CV numérique</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ----- RESET & VARIABLES ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease, color 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    :root {
+      --bg-primary: #f4f7fc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f0f3f9;
+      --text-primary: #1e2b3c;
+      --text-secondary: #2c3e50;
+      --text-muted: #4a5b6e;
+      --accent: #0f4c81;
+      --accent-light: #2a6b9e;
+      --border-light: #dce3ed;
+      --shadow: 0 15px 35px rgba(0, 20, 40, 0.08);
+      --shadow-hover: 0 22px 50px rgba(15, 76, 129, 0.15);
+      --radius: 28px;
+      --radius-sm: 16px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* ----- MODE SOMBRE ----- */
+    body.dark {
+      --bg-primary: #121a26;
+      --bg-card: #1e2a3a;
+      --bg-card-hover: #263445;
+      --text-primary: #eef3f9;
+      --text-secondary: #d0dcec;
+      --text-muted: #9aafc9;
+      --border-light: #334256;
+      --shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 22px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* ----- CARD PRINCIPALE ----- */
+    .cv-wrapper {
+      max-width: 1200px;
+      width: 100%;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.2rem 2.5rem;
+      position: relative;
+      backdrop-filter: blur(2px);
+      transition: all 0.35s ease;
+      border: 1px solid var(--border-light);
+    }
+
+    .cv-wrapper:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* ----- HEADER ----- */
+    .header-grid {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 2rem;
+    }
+
+    .photo-frame {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 24px rgba(15, 76, 129, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border: 3px solid var(--bg-card);
+    }
+
+    .photo-frame:hover {
+      transform: scale(1.04) rotate(1deg);
+      box-shadow: 0 18px 36px rgba(15, 76, 129, 0.35);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .photo-frame .avatar-icon {
+      font-size: 4.2rem;
+      color: var(--accent);
+      opacity: 0.3;
+    }
+
+    .identity h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .identity .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      box-shadow: 0 4px 10px rgba(15, 76, 129, 0.2);
+      margin-top: 0.3rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.8rem;
+      margin-top: 0.8rem;
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+    }
+
+    .contact-info a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.2s;
+    }
+
+    .contact-info a:hover {
+      color: var(--accent);
+    }
+
+    .contact-info i {
+      color: var(--accent);
+      width: 1.4rem;
+      margin-right: 0.2rem;
+    }
+
+    /* ----- TOP ACTIONS ----- */
+    .top-actions {
+      position: absolute;
+      top: 1.8rem;
+      right: 2.2rem;
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .theme-toggle, .download-btn {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-light);
+      border-radius: 60px;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: var(--shadow);
+      transition: all 0.25s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .theme-toggle:hover, .download-btn:hover {
+      background: var(--bg-card-hover);
+      transform: scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .theme-toggle i, .download-btn i {
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    /* ----- PALETTE DE COULEURS (boutons) ----- */
+    .color-palette {
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+      background: var(--bg-primary);
+      padding: 0.3rem 0.8rem;
+      border-radius: 60px;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow);
+    }
+
+    .color-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .color-btn:hover {
+      transform: scale(1.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .color-btn.active {
+      border-color: var(--text-primary);
+      transform: scale(1.15);
+      box-shadow: 0 0 0 2px var(--bg-card), 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .color-btn .check {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 0.6rem;
+      color: white;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .color-btn.active .check {
+      opacity: 1;
+    }
+
+    /* Couleurs primaires */
+    .color-bleu-fonce { background: #0f4c81; }
+    .color-bleu-clair { background: #4a90d9; }
+    .color-rouge { background: #c0392b; }
+    .color-vert { background: #27ae60; }
+    .color-jaune { background: #f1c40f; }
+    .color-orange { background: #e67e22; }
+    .color-violet { background: #8e44ad; }
+    .color-rose { background: #e84393; }
+
+    /* ----- PRESENTATION ----- */
+    .presentation {
+      background: var(--bg-primary);
+      padding: 1.4rem 2rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 2.5rem;
+      border-left: 6px solid var(--accent);
+      transition: background 0.2s, border-color 0.3s;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .presentation p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .presentation strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .rhythm {
+      margin-top: 0.6rem;
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+    }
+
+    /* ----- GRILLE ----- */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 2rem;
+      margin: 2.2rem 0 1.5rem;
+    }
+
+    /* ----- SIDEBAR ----- */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: var(--accent);
+      border-bottom: 2px solid var(--border-light);
+      padding-bottom: 0.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: color 0.3s;
+    }
+
+    .section-title i {
+      font-size: 1.1rem;
+      opacity: 0.7;
+    }
+
+    /* Compétences */
+    .skills-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .skills-list li {
+      background: var(--bg-primary);
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+      border-left: 3px solid var(--accent);
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+    }
+
+    .skills-list li:hover {
+      transform: translateX(4px);
+      background: var(--bg-card-hover);
+      border-left-width: 5px;
+    }
+
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed var(--border-light);
+    }
+
+    .lang-item:last-child {
+      border-bottom: 0;
+    }
+
+    .quality-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .quality-list span {
+      background: var(--bg-primary);
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      border: 1px solid var(--border-light);
+      transition: 0.2s;
+    }
+
+    .quality-list span:hover {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: scale(1.03);
+    }
+
+    .interests i {
+      margin-right: 0.5rem;
+      color: var(--accent);
+    }
+
+    /* ----- EXPERIENCES ----- */
+    .exp-item {
+      background: var(--bg-primary);
+      padding: 1.2rem 1.4rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.2rem;
+      border-left: 4px solid var(--accent);
+      transition: all 0.25s ease;
+    }
+
+    .exp-item:hover {
+      transform: translateX(6px);
+      background: var(--bg-card-hover);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+      border-left-width: 8px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      color: var(--text-primary);
+      flex-wrap: wrap;
+    }
+
+    .exp-header .company {
+      color: var(--accent);
+    }
+
+    .exp-date {
+      font-weight: 400;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .exp-desc {
+      margin-top: 0.6rem;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      padding-left: 0.2rem;
+    }
+
+    .exp-desc li {
+      list-style: none;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .exp-desc li::before {
+      content: "▹";
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .exp-marker {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.9rem;
+      border-radius: 40px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      margin-left: 0.5rem;
+    }
+
+    /* ----- FORMATION ----- */
+    .formation-section {
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--border-light);
+      padding-top: 2rem;
+    }
+
+    .formation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .formation-item {
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      padding: 0.8rem 1.5rem;
+      border: 1px solid var(--border-light);
+      transition: all 0.25s;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem 1.5rem;
+    }
+
+    .formation-item:hover {
+      background: var(--bg-card-hover);
+      transform: translateX(4px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+    }
+
+    .formation-item .year {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 0.9rem;
+      min-width: 110px;
+    }
+
+    .formation-item .title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    .formation-item .sub {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      margin-top: 2.8rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .footer i {
+      color: var(--accent);
+      margin: 0 0.3rem;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 900px) {
+      .cv-wrapper { padding: 1.8rem; }
+      .header-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1rem;
+      }
+      .photo-frame { margin: 0 auto; }
+      .contact-info { justify-content: center; }
+      .grid-2col { grid-template-columns: 1fr; gap: 1.5rem; }
+      .top-actions { 
+        position: relative; 
+        top: 0; 
+        right: 0; 
+        justify-content: center; 
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+      }
+      .identity h1 { font-size: 2.2rem; }
+      .formation-item { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
+      .formation-item .year { min-width: auto; }
+      .color-palette { flex-wrap: wrap; justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .cv-wrapper { padding: 1.2rem; }
+      .photo-frame { width: 110px; height: 110px; }
+      .exp-header { flex-direction: column; }
+      .top-actions { gap: 0.4rem; }
+      .theme-toggle, .download-btn { 
+        padding: 0.3rem 0.8rem; 
+        font-size: 0.8rem;
+      }
+      .color-btn { width: 24px; height: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cv-wrapper" id="cvWrapper">
+    <!-- Actions -->
+    <div class="top-actions">
+      <!-- Toggle thème -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Basculer thème clair/sombre">
+        <i class="fas fa-moon" id="themeIcon"></i>
+        <span id="themeLabel">Sombre</span>
+      </button>
+
+      <!-- Palette de couleurs (boutons) -->
+      <div class="color-palette" id="colorPalette">
+        <button class="color-btn color-bleu-fonce active" data-color="#0f4c81" data-light="#2a6b9e" title="Bleu foncé"><i class="fas fa-check check"></i></button>
+        <button class="color-btn color-bleu-clair" data-color="#4a90d9" data-light="#6aace6" title="Bleu clair"><i class="fas fa-check check"></i></button>
+        <button class="color-btn color-rouge" data-color="#c0392b" data-light="#e74c3c" title="Rouge"><i class="fas fa-check check"></i></button>
+        <button class="color-btn color-vert" data-color="#27ae60" data-light="#2ecc71" title="Vert"><i class="fas fa-check check"></i></button>
+        <button class="color-btn color-jaune" data-color="#f1c40f" data-light="#f7dc6f" title="Jaune"><i class="fas fa-check check"></i></button>
+        <button class="color-btn color-orange" data-color="#e67e22" data-light="#f39c12" title="Orange"><i class="fas fa-check check"></i></button>
+        <button class="color-btn color-violet" data-color="#8e44ad" data-light="#a569bd" title="Violet"><i class="fas fa-check check"></i></button>
+        <button class="color-btn color-rose" data-color="#e84393" data-light="#fd79a8" title="Rose"><i class="fas fa-check check"></i></button>
+      </div>
+
+      <!-- Télécharger -->
+      <button class="download-btn" id="downloadBtn" aria-label="Télécharger le CV">
+        <i class="fas fa-download"></i> Télécharger
+      </button>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header-grid">
+      <div class="photo-frame">
+        <!-- Photo avec fond transparent -->
+        <img src="file:///C:/Users/Lucas/OneDrive/Bureau/CV%20Lucas/CV%20Lucas/Lucas.PNG" alt="Lucas Dusséaux" />
+        <i class="fas fa-user-circle avatar-icon" style="position: absolute; font-size: 5rem; display: none;"></i>
+      </div>
+      <div class="identity">
+        <h1>Lucas Dusséaux</h1>
+        <div class="badge"><i class="fas fa-graduation-cap" style="margin-right: 6px;"></i> Bachelor Marketing Digital (pré-admis)</div>
+        <div class="contact-info">
+          <a href="tel:+33769327674"><i class="fas fa-phone-alt"></i> 07 69 32 76 74</a>
+          <a href="mailto:Lucasdusseaux@gmail.com"><i class="fas fa-envelope"></i> Lucasdusseaux@gmail.com</a>
+          <span><i class="fas fa-map-pin"></i> Livry-Gargan</span>
+          <span><i class="fas fa-car"></i> Permis B (2021)</span>
+          <span><i class="fas fa-file-medical-alt"></i> RQTH</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRESENTATION -->
+    <div class="presentation">
+      <p>
+        <strong>Alternance – Marketing Digital & Développement Commercial</strong><br />
+        Pré-admis en Bachelor Marketing Digital en alternance au sein de Stephenson Formation, je recherche une entreprise pour la rentrée de septembre 2026. Fort d'une expérience en management d'équipe et relation client dans la restauration, je souhaite aujourd'hui développer mes compétences en marketing digital, communication et digitalisation de l'expérience client.
+      </p>
+      <span class="rhythm"><i class="fas fa-calendar-alt" style="margin-right: 6px;"></i> Rythme : 2 semaines entreprise / 1 semaine formation</span>
+    </div>
+
+    <!-- GRILLE -->
+    <div class="grid-2col">
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <!-- Langues -->
+        <div>
+          <div class="section-title"><i class="fas fa-language"></i> Langues</div>
+          <div class="lang-item"><span>Anglais</span> <span><strong>C1</strong></span></div>
+          <div class="lang-item"><span>Espagnol</span> <span><strong>B1</strong></span></div>
+        </div>
+
+        <!-- Compétences -->
+        <div>
+          <div class="section-title"><i class="fas fa-code"></i> Compétences</div>
+          <ul class="skills-list">
+            <li>Relation client : accueil, conseil, gestion de caisse, résolution de conflits</li>
+            <li>Management : encadrement d'équipe, gestion de planning, formation des nouveaux collaborateurs</li>
+            <li>Organisation : autonomie, gestion, respect des procédures</li>
+            <li>Polyvalence : expérience en vente, restauration, manutention et administratif</li>
+            <li>Digital : bonne maîtrise des outils bureautiques (Word, Excel, Canva) mais aussi réseaux sociaux et IA</li>
+          </ul>
+        </div>
+
+        <!-- Qualités -->
+        <div>
+          <div class="section-title"><i class="fas fa-star"></i> Qualités</div>
+          <div class="quality-list">
+            <span>Leadership</span><span>Rigueur</span><span>Persévérance</span>
+            <span>Esprit d'équipe</span><span>Sens des responsabilités</span>
+          </div>
+        </div>
+
+        <!-- Centres d'intérêt -->
+        <div>
+          <div class="section-title"><i class="fas fa-heart"></i> Centres d'intérêt</div>
+          <div class="interests">
+            <div><i class="fas fa-dumbbell"></i> Sport, musculation</div>
+            <div><i class="fas fa-music"></i> Musique, piano</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCES -->
+      <div>
+        <div class="section-title"><i class="fas fa-briefcase"></i> Expériences professionnelles</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="company"><i class="fas fa-user-tie" style="margin-right: 6px;"></i> Leader / Assistant Manager – Burger King</span>
+            <span class="exp-date">Sept. 2022 – Avr. 2025</span>
+          </div>
+          <div class="exp-desc">
+            <li>Encadrement et animation d'une équipe</li>
+            <li>Organisation des plannings et gestion des priorités</li>
+            <li>Suivi des performances et respect des objectifs</li>
+            <li>Gestion de la relation client et des situations complexes</li>
+            <li>Formation des nouveaux collaborateurs</li>
+            <li><span class="exp-marker">Apport marketing</span> compréhension client, performance, management</li>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="company"><i class="fas fa-utensils"></i> Équipier polyvalent – McDonald's</span>
+            <span class="exp-date">2021 – 2022</span>
+          </div>
+          <div class="exp-desc">
+            <li>Accueil et service client</li>
+            <li>Travail en environnement dynamique</li>
+            <li>Gestion des flux et rapidité d'exécution</li>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="company"><i class="fas fa-shopping-cart"></i> Hôte de caisse – Cora / Auchan</span>
+            <span class="exp-date">2021</span>
+          </div>
+          <div class="exp-desc">
+            <li>Encaissement et relation client</li>
+            <li>Gestion des situations clients</li>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <span class="company"><i class="fas fa-tools"></i> Missions intérim – NOVEX</span>
+            <span class="exp-date">2021</span>
+          </div>
+          <div class="exp-desc">
+            <li>Travail en équipe</li>
+            <li>Respect des procédures</li>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMATION -->
+    <div class="formation-section">
+      <div class="section-title"><i class="fas fa-graduation-cap"></i> Formations</div>
+      <div class="formation-list">
+        <div class="formation-item">
+          <span class="year">2026 – 2027</span>
+          <span class="title">Bachelor Marketing Digital (alternance)</span>
+          <span class="sub">CFA Stephenson, Paris · Pré-admis</span>
+        </div>
+        <div class="formation-item">
+          <span class="year">2022 – 2024</span>
+          <span class="title">BTS MCO (alternance)</span>
+          <span class="sub">CFA Stephenson, Paris</span>
+        </div>
+        <div class="formation-item">
+          <span class="year">2020 – 2021</span>
+          <span class="title">Baccalauréat général</span>
+          <span class="sub">Lycée George Clémenceau, Villemomble</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <i class="fas fa-code"></i> Lucas Dusséaux · 2026 · <i class="fas fa-mobile-alt"></i> CV interactif
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ----- GESTION DE LA PHOTO (fallback) -----
+      const photoImg = document.querySelector('.photo-frame img');
+      const fallbackIcon = document.querySelector('.photo-frame .avatar-icon');
+      
+      if (photoImg) {
+        photoImg.addEventListener('error', function() {
+          this.style.display = 'none';
+          if (fallbackIcon) {
+            fallbackIcon.style.display = 'block';
+          }
+        });
+      }
+
+      // ----- THEME (dark/light) -----
+      const toggleBtn = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const themeLabel = document.getElementById('themeLabel');
+      const body = document.body;
+
+      const storedTheme = localStorage.getItem('cv-theme');
+      if (storedTheme === 'dark') {
+        body.classList.add('dark');
+        themeIcon.className = 'fas fa-sun';
+        themeLabel.textContent = 'Clair';
+      } else {
+        body.classList.remove('dark');
+        themeIcon.className = 'fas fa-moon';
+        themeLabel.textContent = 'Sombre';
+      }
+
+      toggleBtn.addEventListener('click', function() {
+        body.classList.toggle('dark');
+        const isDark = body.classList.contains('dark');
+        if (isDark) {
+          themeIcon.className = 'fas fa-sun';
+          themeLabel.textContent = 'Clair';
+          localStorage.setItem('cv-theme', 'dark');
+        } else {
+          themeIcon.className = 'fas fa-moon';
+          themeLabel.textContent = 'Sombre';
+          localStorage.setItem('cv-theme', 'light');
+        }
+      });
+
+      // ----- PALETTE DE COULEURS (boutons) -----
+      const colorBtns = document.querySelectorAll('.color-btn');
+      const root = document.documentElement;
+
+      // Charger la couleur stockée
+      const storedColor = localStorage.getItem('cv-accent');
+      const storedLight = localStorage.getItem('cv-accent-light');
+      
+      if (storedColor && storedLight) {
+        root.style.setProperty('--accent', storedColor);
+        root.style.setProperty('--accent-light', storedLight);
+        colorBtns.forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.dataset.color === storedColor) {
+            btn.classList.add('active');
+          }
+        });
+      }
+
+      colorBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const color = this.dataset.color;
+          const light = this.dataset.light;
+          
+          root.style.setProperty('--accent', color);
+          root.style.setProperty('--accent-light', light);
+          
+          localStorage.setItem('cv-accent', color);
+          localStorage.setItem('cv-accent-light', light);
+          
+          colorBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // ----- TELECHARGER (PDF original) -----
+      const downloadBtn = document.getElementById('downloadBtn');
+      downloadBtn.addEventListener('click', function() {
+        const link = document.createElement('a');
+        link.href = 'CV Lucas Dusséaux (5).pdf';
+        link.download = 'CV_Lucas_Dusseaux.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    })();
+  </script>
+</body>
+</html>
